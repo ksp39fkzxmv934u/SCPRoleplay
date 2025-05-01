@@ -125,11 +125,10 @@ function CreateESP()
 			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		end)
 		player.CharacterAdded:Connect(function(char)
-			while not char:FindFirstChildOfClass("Humanoid") do
-				wait()
-			end
+			repeat wait() until char:FindFirstChildOfClass("Humanoid")
 			a.Adornee = char:WaitForChild("Head")
 			humcon = char:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
+				if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 				b.Text = player.Name.." | HP: "..char:FindFirstChildOfClass("Humanoid").Health
 			end)
 		end)
@@ -166,11 +165,10 @@ function CreateESP()
 			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		end)
 		player.CharacterAdded:Connect(function(char)
-			while not char:FindFirstChildOfClass("Humanoid") do
-				wait()
-			end
+			repeat wait() until char:FindFirstChildOfClass("Humanoid")
 			a.Adornee = char:WaitForChild("Head")
 			humcon = char:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
+				if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 				b.Text = player.Name.." | HP: "..char:FindFirstChildOfClass("Humanoid").Health
 			end)
 		end)

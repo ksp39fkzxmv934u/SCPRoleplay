@@ -70,6 +70,7 @@ TextBoxShotsDelay = Gui.TextBox({
 	PlaceholderText = "Shots/Delay",
 	Text = "10/0.09",
 	TextScaled = true,
+	ClearTextOnFocus = false,
 	Parent = Frame1
 })
 Gui.UICorner({
@@ -86,6 +87,7 @@ TextBoxTarget = Gui.TextBox({
 	PlaceholderText = "Username",
 	Text = "KirkaTMrus",
 	TextScaled = true,
+	ClearTextOnFocus = false,
 	Parent = Frame1
 })
 Gui.UICorner({
@@ -98,7 +100,7 @@ function CreateESP()
 	for _, player in pairs(game.Players:GetChildren()) do
 		local a = Instance.new("BillboardGui")
 		a.Name = player.Name
-		a.Size = UDim2.new(3.5, 0, 1.5, 0)
+		a.Size = UDim2.new(5, 0, 1.5, 0)
 		a.StudsOffset = Vector3.new(0, 2, 0)
 		a.AlwaysOnTop = true
 		a.Enabled = false
@@ -110,8 +112,9 @@ function CreateESP()
 		b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		b.Size = UDim2.new(1, 0, 1, 0)
 		b.TextScaled = true
-		b.TextColor3 = Color3.new(0, 0, 0)
-		b.Font = Enum.Font.BuilderSansMedium
+		b.TextColor3 = Color3.new(1, 1, 1)
+		b.Font = Enum.Font.DenkOne
+		b.FontFace.Bold = true
 		b.ZIndex = 10
 		b.Parent = a
 		local humcon = nil
@@ -137,7 +140,7 @@ function CreateESP()
 	game.Players.PlayerAdded:Connect(function(player)
 		local a = Instance.new("BillboardGui")
 		a.Name = player.Name
-		a.Size = UDim2.new(3.5, 0, 1.5, 0)
+		a.Size = UDim2.new(5, 0, 1.5, 0)
 		a.StudsOffset = Vector3.new(0, 2, 0)
 		a.AlwaysOnTop = true
 		a.Enabled = false
@@ -149,8 +152,9 @@ function CreateESP()
 		b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		b.Size = UDim2.new(1, 0, 1, 0)
 		b.TextScaled = true
-		b.TextColor3 = Color3.new(0, 0, 0)
-		b.Font = Enum.Font.BuilderSansMedium
+		b.TextColor3 = Color3.new(1, 1, 1)
+		b.Font = Enum.Font.DenkOne
+		b.FontFace.Bold = true
 		b.ZIndex = 10
 		b.Parent = a
 		local humcon = nil
@@ -223,6 +227,17 @@ function KillPlr()
 		end
 	end
 end
+
+TextBoxTarget.InputEnded:Connect(function()
+	for _, v in pairs(ESPFolder:GetChildren()) do
+		if v:IsA("BillboardGui") then
+			v.G.TextColor3 = Color3.new(1, 1, 1)
+		end
+	end
+	if ESPFolder:FindFirstChild(TextBoxTarget.Text) then
+		ESPFolder:FindFirstChild(TextBoxTarget.Text).G.TextColor3 = Color3.new(1, 0, 0)
+	end
+end)
 
 ESPB.MouseButton1Click:Connect(ESPBClick)
 KillB.MouseButton1Click:Connect(KillPlr)

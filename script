@@ -146,7 +146,6 @@ function CreateESP()
 		else
 			a.Enabled = true
 		end
-		a.Adornee = player.Character:WaitForChild("Head")
 		a.Parent = ESPFolder
 		local b = Instance.new("TextLabel")
 		b.Name = "G"
@@ -162,6 +161,7 @@ function CreateESP()
 		local humcon = nil
 		repeat wait() until player.Character
 		repeat wait() until player.Character:FindFirstChildOfClass("Humanoid")
+		a.Adornee = player.Character:WaitForChild("Head")
 		humcon = player.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
 			if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil;return end
 			if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end

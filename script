@@ -118,13 +118,10 @@ function CreateESP()
 		b.ZIndex = 10
 		b.Parent = a
 		local humcon = nil
-		while not player.Character do
-			wait()
-		end
-		while not player.Character:FindFirstChildOfClass("Humanoid") do
-			wait()
-		end
+		repeat wait() until player.Character
+		repeat wait() until player.Character:FindFirstChildOfClass("Humanoid")
 		humcon = player.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
+			if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		end)
 		player.CharacterAdded:Connect(function(char)
@@ -143,7 +140,11 @@ function CreateESP()
 		a.Size = UDim2.new(5, 0, 1.5, 0)
 		a.StudsOffset = Vector3.new(0, 2, 0)
 		a.AlwaysOnTop = true
-		a.Enabled = false
+		if not ESPEnabled then
+			a.Enabled = false
+		else
+			a.Enabled = true
+		end
 		a.Adornee = player.Character:WaitForChild("Head")
 		a.Parent = ESPFolder
 		local b = Instance.new("TextLabel")
@@ -158,13 +159,10 @@ function CreateESP()
 		b.ZIndex = 10
 		b.Parent = a
 		local humcon = nil
-		while not player.Character do
-			wait()
-		end
-		while not player.Character:FindFirstChildOfClass("Humanoid") do
-			wait()
-		end
+		repeat wait() until player.Character
+		repeat wait() until player.Character:FindFirstChildOfClass("Humanoid")
 		humcon = player.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
+			if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		end)
 		player.CharacterAdded:Connect(function(char)
@@ -209,6 +207,7 @@ end
 
 ShotRemote = game.ReplicatedStorage.Remotes.ShotRemote
 function KillPlr()
+	KillB.TextColor3 = Color3.new(0, 1, 0)
 	local data = {
 		Shots = tonumber(TextBoxShotsDelay.Text:split("/")[1]),
 		Delay = tonumber(TextBoxShotsDelay.Text:split("/")[2]),
@@ -226,6 +225,7 @@ function KillPlr()
 			wait(data.Delay)
 		end
 	end
+	KillB.TextColor3 = Color3.new(0, 0, 0)
 end
 
 TextBoxTarget.InputEnded:Connect(function()

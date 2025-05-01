@@ -1,0 +1,214 @@
+Player = game.Players.LocalPlayer
+Gui = loadstring(game:HttpGet("https://raw.githubusercontent.com/ksp39fkzxmv934u/GuiLibrary/refs/heads/main/script"))()
+Resolution = {workspace.Camera.ViewportSize.X, workspace.Camera.ViewportSize.Y}
+CoreGui = game.CoreGui
+RandomNameFunction = Gui.RandomName
+ESPFolder = Instance.new("Folder")
+ESPFolder.Parent = CoreGui
+ScreenGuiMain = Gui.ScreenGUI({
+	Name = "MM2",
+	ResetOnSpawn = false,
+	Parent = CoreGui
+})
+Frame1 = Gui.Frame({
+	Name = "Main",
+	AnchorPoint = Vector2.new(.5, .5),
+	BackgroundColor3 = Color3.new(0.498039, 0.498039, 0.498039),
+	Position = UDim2.new(.5, 0, .5, 0),
+	Size = UDim2.new(200 / Resolution[1], 0, 200 / Resolution[2], 0),
+	ZIndex = 1,
+	Parent = ScreenGuiMain,
+	Draggable_ = true
+})
+Gui.UICorner({
+	Name = "UiCorner",
+	CornerRadius = UDim.new(0, 12),
+	Parent = Frame1
+})
+ESPB = Gui.TextButton({
+	Name = RandomNameFunction(),
+	BackgroundTransparency = 0,
+	BackgroundColor3 = Color3.new(0.666667, 0.333333, 0),
+	Position = UDim2.new(0.25, 0, 0.075, 0),
+	Size = UDim2.new(0.5, 0, 0.25, 0),
+	Font = Enum.Font.FredokaOne,
+	Text = "ESP",
+	ZIndex = 2,
+	TextColor3 = Color3.new(0, 0, 0),
+	TextScaled = true,
+	Parent = Frame1
+})
+Gui.UICorner({
+	Name = "UiCorner",
+	CornerRadius = UDim.new(0, 12),
+	Parent = ESPB
+})
+KillB = Gui.TextButton({
+	Name = RandomNameFunction(),
+	BackgroundTransparency = 0,
+	BackgroundColor3 = Color3.new(1, 0, 0),
+	Position = UDim2.new(0.175, 0, 0.375, 0),
+	Size = UDim2.new(0.65, 0, 0.25, 0),
+	Font = Enum.Font.FredokaOne,
+	Text = "Kill Player",
+	ZIndex = 2,
+	TextColor3 = Color3.new(0, 0, 0),
+	TextScaled = true,
+	Parent = Frame1
+})
+Gui.UICorner({
+	Name = "UiCorner",
+	CornerRadius = UDim.new(0, 12),
+	Parent = KillB
+})
+TextBoxShotsDelay = Gui.TextBox({
+	Name = RandomNameFunction(),
+	BackgroundColor3 = Color3.new(1, 1, 1),
+	Position = UDim2.new(0.09, 0, 0.665, 0),
+	Size = UDim2.new(0.4, 0, 0.25, 0),
+	Font = Enum.Font.FredokaOne,
+	PlaceholderText = "Shots/Delay",
+	Text = "10/0.09",
+	TextScaled = true,
+	Parent = Frame1
+})
+Gui.UICorner({
+	Name = "UiCorner",
+	CornerRadius = UDim.new(0, 12),
+	Parent = TextBoxShotsDelay
+})
+TextBoxTarget = Gui.TextBox({
+	Name = RandomNameFunction(),
+	BackgroundColor3 = Color3.new(1, 1, 1),
+	Position = UDim2.new(0.535, 0, 0.665, 0),
+	Size = UDim2.new(0.4, 0, 0.25, 0),
+	Font = Enum.Font.FredokaOne,
+	PlaceholderText = "Username",
+	Text = "KirkaTMrus",
+	TextScaled = true,
+	Parent = Frame1
+})
+Gui.UICorner({
+	Name = "UiCorner",
+	CornerRadius = UDim.new(0, 12),
+	Parent = TextBoxTarget
+})
+
+function CreateESP()
+	for _, player in pairs(game.Players:GetChildren()) do
+		local a = Instance.new("BillboardGui")
+		a.Name = player.Name
+		a.Size = UDim2.new(3.5, 0, 1.5, 0)
+		a.StudsOffset = Vector3.new(0, 2, 0)
+		a.AlwaysOnTop = true
+		a.Enabled = false
+		a.Adornee = player.Character:WaitForChild("Head")
+		a.Parent = ESPFolder
+		local b = Instance.new("TextLabel")
+		b.Name = "G"
+		b.BackgroundTransparency = 1
+		b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
+		b.Size = UDim2.new(1, 0, 1, 0)
+		b.TextScaled = true
+		b.TextColor3 = Color3.new(0, 0, 0)
+		b.Font = Enum.Font.BuilderSansMedium
+		b.ZIndex = 10
+		b.Parent = a
+		local humcon = nil
+		humcon = player.Character.Humanoid.Changed:Connect(function()
+			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
+		end)
+		player.CharacterAdded:Connect(function()
+			a.Adornee = player.Character:WaitForChild("Head")
+			humcon = player.Character.Humanoid.Changed:Connect(function()
+				b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
+			end)
+		end)
+	end
+	game.Players.PlayerAdded:Connect(function(player)
+		local a = Instance.new("BillboardGui")
+		a.Name = player.Name
+		a.Size = UDim2.new(3.5, 0, 1.5, 0)
+		a.StudsOffset = Vector3.new(0, 2, 0)
+		a.AlwaysOnTop = true
+		if not ESPEnabled then
+			a.Enabled = false
+		else
+			a.Enabled = true
+		end
+		a.Adornee = player.Character:WaitForChild("Head")
+		a.Parent = ESPFolder
+		local b = Instance.new("TextLabel")
+		b.Name = "G"
+		b.BackgroundTransparency = 1
+		b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
+		b.Size = UDim2.new(1, 0, 1, 0)
+		b.TextScaled = true
+		b.TextColor3 = Color3.new(0, 0, 0)
+		b.Font = Enum.Font.BuilderSansMedium
+		b.ZIndex = 10
+		b.Parent = a
+		local humcon = nil
+		humcon = player.Character.Humanoid.Changed:Connect(function()
+			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
+		end)
+		player.CharacterAdded:Connect(function()
+			a.Adornee = player.Character:WaitForChild("Head")
+			humcon = player.Character.Humanoid.Changed:Connect(function()
+				b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
+			end)
+		end)
+	end)
+	game.Players.PlayerRemoving:Connect(function(plr)
+		if ESPFolder:FindFirstChild(plr.Name) then
+			ESPFolder:FindFirstChild(plr.Name):Destroy()
+		end
+	end)
+end
+
+CreateESP()
+
+ESPEnabled = false
+function ESPBClick()
+	if not ESPEnabled then
+		ESPEnabled = true
+		ESPB.TextColor3 = Color3.new(0, 1, 0)
+		for _, v in pairs(ESPFolder:GetChildren()) do
+			if v:IsA("BillboardGui") then
+				v.Enabled = true
+			end
+		end
+	else
+		ESPEnabled = false
+		ESPB.TextColor3 = Color3.new(0, 0, 0)
+		for _, v in pairs(ESPFolder:GetChildren()) do
+			if v:IsA("BillboardGui") then
+				v.Enabled = false
+			end
+		end
+	end
+end
+
+ShotRemote = game.ReplicatedStorage.Remotes.ShotRemote
+function KillPlr()
+	local data = {
+		Shots = tonumber(TextBoxShotsDelay.Text:split("/")[1]),
+		Delay = tonumber(TextBoxShotsDelay.Text:split("/")[2]),
+		Username = TextBoxTarget.Text
+	}
+	if game.Players:FindFirstChild(data.Username) then
+		local targethead = game.Players:FindFirstChild(data.Username).Character:WaitForChild("Head")
+		for i = 1,data.Shots do
+			local args = {
+				{targethead.Position.X + math.random(0, 1) / 100000,targethead.Position.Y + math.random(0, 1) / 100000,targethead.Position.Z + math.random(0, 1) / 100000},
+				targethead,
+				vector.create(targethead.Position.X + math.random(0, 1) / 100000,targethead.Position.Y + math.random(0, 1) / 100000,targethead.Position.Z + math.random(0, 1) / 100000)
+			}
+			ShotRemote:FireServer(unpack(args))
+			wait(data.Delay)
+		end
+	end
+end
+
+ESPB.MouseButton1Click:Connect(ESPBClick)
+KillB.MouseButton1Click:Connect(KillPlr)

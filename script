@@ -121,7 +121,7 @@ function CreateESP()
 		repeat wait() until player.Character
 		repeat wait() until player.Character:FindFirstChildOfClass("Humanoid")
 		humcon = player.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
-			if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil end
+			if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil;return end
 			if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		end)
@@ -129,7 +129,7 @@ function CreateESP()
 			repeat wait() until char:FindFirstChildOfClass("Humanoid")
 			a.Adornee = char:WaitForChild("Head")
 			humcon = char:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
-				if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil end
+				if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil;return end
 				if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 				b.Text = player.Name.." | HP: "..char:FindFirstChildOfClass("Humanoid").Health
 			end)
@@ -163,7 +163,7 @@ function CreateESP()
 		repeat wait() until player.Character
 		repeat wait() until player.Character:FindFirstChildOfClass("Humanoid")
 		humcon = player.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
-			if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil end
+			if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil;return end
 			if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		end)
@@ -171,7 +171,7 @@ function CreateESP()
 			repeat wait() until char:FindFirstChildOfClass("Humanoid")
 			a.Adornee = char:WaitForChild("Head")
 			humcon = char:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
-				if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil end
+				if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil;return end
 				if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 				b.Text = player.Name.." | HP: "..char:FindFirstChildOfClass("Humanoid").Health
 			end)

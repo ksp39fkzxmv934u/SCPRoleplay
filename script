@@ -115,13 +115,22 @@ function CreateESP()
 		b.ZIndex = 10
 		b.Parent = a
 		local humcon = nil
-		humcon = player.Character.Humanoid.Changed:Connect(function()
+		while not player.Character do
+			wait()
+		end
+		while not player.Character:FindFirstChildOfClass("Humanoid") do
+			wait()
+		end
+		humcon = player.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
 			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		end)
-		player.CharacterAdded:Connect(function()
-			a.Adornee = player.Character:WaitForChild("Head")
-			humcon = player.Character.Humanoid.Changed:Connect(function()
-				b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
+		player.CharacterAdded:Connect(function(char)
+			while not char:FindFirstChildOfClass("Humanoid") do
+				wait()
+			end
+			a.Adornee = char:WaitForChild("Head")
+			humcon = char:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
+				b.Text = player.Name.." | HP: "..char:FindFirstChildOfClass("Humanoid").Health
 			end)
 		end)
 	end
@@ -131,11 +140,7 @@ function CreateESP()
 		a.Size = UDim2.new(3.5, 0, 1.5, 0)
 		a.StudsOffset = Vector3.new(0, 2, 0)
 		a.AlwaysOnTop = true
-		if not ESPEnabled then
-			a.Enabled = false
-		else
-			a.Enabled = true
-		end
+		a.Enabled = false
 		a.Adornee = player.Character:WaitForChild("Head")
 		a.Parent = ESPFolder
 		local b = Instance.new("TextLabel")
@@ -149,13 +154,22 @@ function CreateESP()
 		b.ZIndex = 10
 		b.Parent = a
 		local humcon = nil
-		humcon = player.Character.Humanoid.Changed:Connect(function()
+		while not player.Character do
+			wait()
+		end
+		while not player.Character:FindFirstChildOfClass("Humanoid") do
+			wait()
+		end
+		humcon = player.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
 			b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		end)
-		player.CharacterAdded:Connect(function()
-			a.Adornee = player.Character:WaitForChild("Head")
-			humcon = player.Character.Humanoid.Changed:Connect(function()
-				b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
+		player.CharacterAdded:Connect(function(char)
+			while not char:FindFirstChildOfClass("Humanoid") do
+				wait()
+			end
+			a.Adornee = char:WaitForChild("Head")
+			humcon = char:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
+				b.Text = player.Name.." | HP: "..char:FindFirstChildOfClass("Humanoid").Health
 			end)
 		end)
 	end)

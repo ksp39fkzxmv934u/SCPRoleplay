@@ -304,6 +304,7 @@ function SpectatePlayer()
 			if game.Players:FindFirstChild(plr).Character then
 				if game.Players:FindFirstChild(plr).Character:FindFirstChildOfClass("Humanoid") then
 					spectation = true
+					workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
 					workspace.CurrentCamera.CameraSubject = game.Players:FindFirstChild(plr).Character:FindFirstChildOfClass("Humanoid")
 					SpectateB.TextColor3 = Color3.new(0, 1, 0)
 				end
@@ -314,6 +315,7 @@ function SpectatePlayer()
 		SpectateB.TextColor3 = Color3.new(0, 0, 0)
 		if Player.Character then
 			if Player.Character:FindFirstChildOfClass("Humanoid") then
+				workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
 				workspace.CurrentCamera.CameraSubject = Player.Character:FindFirstChildOfClass("Humanoid")
 			end
 		end

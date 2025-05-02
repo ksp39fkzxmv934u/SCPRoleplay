@@ -15,7 +15,7 @@ Frame1 = Gui.Frame({
 	AnchorPoint = Vector2.new(.5, .5),
 	BackgroundColor3 = Color3.new(0.498039, 0.498039, 0.498039),
 	Position = UDim2.new(.5, 0, .5, 0),
-	Size = UDim2.new(200 / Resolution[1], 0, 200 / Resolution[2], 0),
+	Size = UDim2.new(200 / Resolution[1], 0, 260 / Resolution[2], 0),
 	ZIndex = 1,
 	Parent = ScreenGuiMain,
 	Draggable_ = true
@@ -29,8 +29,8 @@ ESPB = Gui.TextButton({
 	Name = RandomNameFunction(),
 	BackgroundTransparency = 0,
 	BackgroundColor3 = Color3.new(0.666667, 0.333333, 0),
-	Position = UDim2.new(0.25, 0, 0.075, 0),
-	Size = UDim2.new(0.5, 0, 0.25, 0),
+	Position = UDim2.new(0.25, 0, 0.032, 0),
+	Size = UDim2.new(0.5, 0, 0.194, 0),
 	Font = Enum.Font.FredokaOne,
 	Text = "ESP",
 	ZIndex = 2,
@@ -47,8 +47,8 @@ KillB = Gui.TextButton({
 	Name = RandomNameFunction(),
 	BackgroundTransparency = 0,
 	BackgroundColor3 = Color3.new(1, 0, 0),
-	Position = UDim2.new(0.175, 0, 0.375, 0),
-	Size = UDim2.new(0.65, 0, 0.25, 0),
+	Position = UDim2.new(0.175, 0, 0.264, 0),
+	Size = UDim2.new(0.65, 0, 0.194, 0),
 	Font = Enum.Font.FredokaOne,
 	Text = "Kill Player",
 	ZIndex = 2,
@@ -64,8 +64,8 @@ Gui.UICorner({
 TextBoxShotsDelay = Gui.TextBox({
 	Name = RandomNameFunction(),
 	BackgroundColor3 = Color3.new(1, 1, 1),
-	Position = UDim2.new(0.09, 0, 0.665, 0),
-	Size = UDim2.new(0.4, 0, 0.25, 0),
+	Position = UDim2.new(0.07, 0, 0.5, 0),
+	Size = UDim2.new(0.4, 0, 0.194, 0),
 	Font = Enum.Font.FredokaOne,
 	PlaceholderText = "Shots/Delay",
 	Text = "10/0.09",
@@ -81,8 +81,8 @@ Gui.UICorner({
 TextBoxTarget = Gui.TextBox({
 	Name = RandomNameFunction(),
 	BackgroundColor3 = Color3.new(1, 1, 1),
-	Position = UDim2.new(0.535, 0, 0.665, 0),
-	Size = UDim2.new(0.4, 0, 0.25, 0),
+	Position = UDim2.new(0.51, 0, 0.5, 0),
+	Size = UDim2.new(0.4, 0, 0.194, 0),
 	Font = Enum.Font.FredokaOne,
 	PlaceholderText = "Username",
 	Text = "KirkaTMrus",
@@ -94,6 +94,41 @@ Gui.UICorner({
 	Name = "UiCorner",
 	CornerRadius = UDim.new(0, 12),
 	Parent = TextBoxTarget
+})
+SpectateB = Gui.TextButton({
+	Name = RandomNameFunction(),
+	BackgroundTransparency = 0,
+	BackgroundColor3 = Color3.new(1, 1, 1),
+	Position = UDim2.new(0.07, 0, 0.739, 0),
+	Size = UDim2.new(0.4, 0, 0.194, 0),
+	Font = Enum.Font.FredokaOne,
+	Text = "Spectate",
+	ZIndex = 2,
+	TextColor3 = Color3.new(0, 0, 0),
+	TextScaled = true,
+	Parent = Frame1
+})
+Gui.UICorner({
+	Name = "UiCorner",
+	CornerRadius = UDim.new(0, 12),
+	Parent = SpectateB
+})
+SpectateUsernameTextBox = Gui.TextBox({
+	Name = RandomNameFunction(),
+	BackgroundColor3 = Color3.new(1, 1, 1),
+	Position = UDim2.new(0.51, 0, 0.735, 0),
+	Size = UDim2.new(0.4, 0, 0.194, 0),
+	Font = Enum.Font.FredokaOne,
+	PlaceholderText = "Spectate username",
+	Text = "KirkaTMrus",
+	TextScaled = true,
+	ClearTextOnFocus = false,
+	Parent = Frame1
+})
+Gui.UICorner({
+	Name = "UiCorner",
+	CornerRadius = UDim.new(0, 12),
+	Parent = SpectateUsernameTextBox
 })
 
 function CreateESP()
@@ -127,12 +162,21 @@ function CreateESP()
 		end)
 		player.CharacterAdded:Connect(function(char)
 			repeat wait() until char:FindFirstChildOfClass("Humanoid")
-			a.Adornee = char:WaitForChild("Head")
 			humcon = char:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
 				if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil;return end
 				if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 				b.Text = player.Name.." | HP: "..char:FindFirstChildOfClass("Humanoid").Health
 			end)
+		end)
+		spawn(function()
+			while true do
+				if player.Character then
+					if player.Character:FindFirstChild("Head") then
+						a.Adornee = player.Character:WaitForChild("Head")
+					end
+				end
+				wait(3)
+			end
 		end)
 	end
 	game.Players.PlayerAdded:Connect(function(player)
@@ -169,12 +213,21 @@ function CreateESP()
 		end)
 		player.CharacterAdded:Connect(function(char)
 			repeat wait() until char:FindFirstChildOfClass("Humanoid")
-			a.Adornee = char:WaitForChild("Head")
 			humcon = char:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
 				if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil;return end
 				if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
 				b.Text = player.Name.." | HP: "..char:FindFirstChildOfClass("Humanoid").Health
 			end)
+		end)
+		spawn(function()
+			while true do
+				if player.Character then
+					if player.Character:FindFirstChild("Head") then
+						a.Adornee = player.Character:WaitForChild("Head")
+					end
+				end
+				wait(3)
+			end
 		end)
 	end)
 	game.Players.PlayerRemoving:Connect(function(plr)
@@ -243,5 +296,30 @@ TextBoxTarget.InputEnded:Connect(function()
 	end
 end)
 
+spectation = false
+function SpectatePlayer()
+	if not spectation then
+		local plr = SpectateUsernameTextBox.Text
+		if game.Players:FindFirstChild(plr) then
+			if game.Players:FindFirstChild(plr).Character then
+				if game.Players:FindFirstChild(plr).Character:FindFirstChildOfClass("Humanoid") then
+					spectation = true
+					workspace.CurrentCamera.CameraSubject = game.Players:FindFirstChild(plr).Character:FindFirstChildOfClass("Humanoid")
+					SpectateB.TextColor3 = Color3.new(0, 1, 0)
+				end
+			end
+		end
+	else
+		spectation = false
+		SpectateB.TextColor3 = Color3.new(0, 0, 0)
+		if Player.Character then
+			if Player.Character:FindFirstChildOfClass("Humanoid") then
+				workspace.CurrentCamera.CameraSubject = Player.Character:FindFirstChildOfClass("Humanoid")
+			end
+		end
+	end
+end
+
 ESPB.MouseButton1Click:Connect(ESPBClick)
 KillB.MouseButton1Click:Connect(KillPlr)
+SpectateB.MouseButton1Click:Connect(SpectatePlayer)

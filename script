@@ -150,7 +150,6 @@ function CreateESP()
 		local b = Instance.new("TextLabel")
 		b.Name = "G"
 		b.BackgroundTransparency = 1
-		b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		b.Size = UDim2.new(1, 0, 1, 0)
 		b.TextScaled = true
 		b.TextColor3 = Color3.new(1, 1, 1)
@@ -162,6 +161,7 @@ function CreateESP()
 		repeat wait() until player.Character
 		repeat wait() until player.Character:FindFirstChildOfClass("Humanoid")
 		a.Adornee = player.Character:WaitForChild("Head")
+		b.Text = player.Name.." | HP: "..player.Character:FindFirstChildOfClass("Humanoid").Health
 		humcon = player.Character:FindFirstChildOfClass("Humanoid").Changed:Connect(function()
 			if not player.Character:FindFirstChildOfClass("Humanoid") then humcon = nil;return end
 			if player.Character:FindFirstChildOfClass("Humanoid").Health == 0 then humcon = nil end
@@ -233,7 +233,9 @@ end
 TextBoxTarget.InputEnded:Connect(function()
 	for _, v in pairs(ESPFolder:GetChildren()) do
 		if v:IsA("BillboardGui") then
-			v.G.TextColor3 = Color3.new(1, 1, 1)
+			if v:FindFirstChild("G") then
+				v.G.TextColor3 = Color3.new(1, 1, 1)
+			end
 		end
 	end
 	if ESPFolder:FindFirstChild(TextBoxTarget.Text) then

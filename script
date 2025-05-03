@@ -102,7 +102,7 @@ SpectateB = Gui.TextButton({
 	Position = UDim2.new(0.07, 0, 0.739, 0),
 	Size = UDim2.new(0.4, 0, 0.194, 0),
 	Font = Enum.Font.FredokaOne,
-	Text = "Spectate",
+	Text = "Track player",
 	ZIndex = 2,
 	TextColor3 = Color3.new(0, 0, 0),
 	TextScaled = true,
@@ -147,8 +147,7 @@ function CreateESP()
 			b.Size = UDim2.new(1, 0, 1, 0)
 			b.TextSize = 20
 			b.TextColor3 = Color3.new(1, 1, 1)
-			b.Font = Enum.Font.DenkOne
-			b.FontFace.Bold = true
+			b.Font = Enum.Font.SourceSansSemibold
 			b.ZIndex = 10
 			b.Parent = a
 			repeat wait() until player.Character
@@ -221,8 +220,7 @@ function CreateESP()
 		b.Size = UDim2.new(1, 0, 1, 0)
 		b.TextSize = 20
 		b.TextColor3 = Color3.new(1, 1, 1)
-		b.Font = Enum.Font.DenkOne
-		b.FontFace.Bold = true
+		b.Font = Enum.Font.SourceSansSemibold
 		b.ZIndex = 10
 		b.Parent = a
 		repeat wait() until player.Character
@@ -352,7 +350,7 @@ function TrackPlayer()
 		if game.Players:FindFirstChild(plr) then
 			TrackPLR = true
 			SpectateB.TextColor3 = Color3.new(0, 1, 0)
-			for _, m in ESPFolder do
+			for _, m in pairs(ESPFolder:GetChildren()) do
 				if m:IsA("BoxHandleAdornment") and m:GetAttribute("OWNER") == plr then
 					m.Transparency = 0.3
 				end
@@ -361,7 +359,7 @@ function TrackPlayer()
 	else
 		TrackPLR = false
 		SpectateB.TextColor3 = Color3.new(0, 0, 0)
-		for _, m in ESPFolder do
+		for _, m in pairs(ESPFolder:GetChildren()) do
 			if m:IsA("BoxHandleAdornment") then
 				m.Transparency = 1
 			end

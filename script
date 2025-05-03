@@ -136,7 +136,7 @@ function CreateESP()
 		spawn(function()
 			local a = Instance.new("BillboardGui")
 			a.Name = player.Name
-			a.Size = UDim2.new(0, 100, 0, 100)
+			a.Size = UDim2.new(0, 70, 0, 70)
 			a.StudsOffset = Vector3.new(0, 3, 0)
 			a.AlwaysOnTop = true
 			a.Enabled = false
@@ -145,7 +145,7 @@ function CreateESP()
 			b.Name = "G"
 			b.BackgroundTransparency = 1
 			b.Size = UDim2.new(1, 0, 1, 0)
-			b.TextSize = 20
+			b.TextSize = 8
 			b.TextColor3 = Color3.new(1, 1, 1)
 			b.Font = Enum.Font.SourceSansSemibold
 			b.ZIndex = 10
@@ -180,8 +180,10 @@ function CreateESP()
 				end)
 				Connections[2] = player.Character:FindFirstChildOfClass("Humanoid").Died:Connect(function()
 					b.Text = player.Name.." | DIED"
+					Connections[1]:Disconnect()
+					Connections[2]:Disconnect()
 					Connections[1] = 1
-					Connections[1] = 2
+					Connections[2] = 2
 				end)
 				for _, q in pairs(ESPBXF) do
 					if player.Character:FindFirstChild(q.Name:split("|")[2]) then
@@ -209,7 +211,7 @@ function CreateESP()
 	game.Players.PlayerAdded:Connect(function(player)
 		local a = Instance.new("BillboardGui")
 		a.Name = player.Name
-		a.Size = UDim2.new(0, 100, 0, 100)
+		a.Size = UDim2.new(0, 70, 0, 70)
 		a.StudsOffset = Vector3.new(0, 3, 0)
 		a.AlwaysOnTop = true
 		a.Enabled = false
@@ -218,7 +220,7 @@ function CreateESP()
 		b.Name = "G"
 		b.BackgroundTransparency = 1
 		b.Size = UDim2.new(1, 0, 1, 0)
-		b.TextSize = 20
+		b.TextSize = 8
 		b.TextColor3 = Color3.new(1, 1, 1)
 		b.Font = Enum.Font.SourceSansSemibold
 		b.ZIndex = 10
@@ -253,8 +255,10 @@ function CreateESP()
 			end)
 			Connections[2] = player.Character:FindFirstChildOfClass("Humanoid").Died:Connect(function()
 				b.Text = player.Name.." | DIED"
+				Connections[1]:Disconnect()
+				Connections[2]:Disconnect()
 				Connections[1] = 1
-				Connections[1] = 2
+				Connections[2] = 2
 			end)
 			for _, q in pairs(ESPBXF) do
 				if player.Character:FindFirstChild(q.Name:split("|")[2]) then
@@ -264,6 +268,7 @@ function CreateESP()
 		end
 		player.CharacterAdded:Connect(function(char)
 			repeat wait() until char:FindFirstChildOfClass("Humanoid")
+			repeat wait() until char:FindFirstChild("HumanoidRootPart")
 			SetConnections()
 		end)
 		spawn(function()
